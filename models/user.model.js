@@ -59,3 +59,13 @@ module.exports.addUser = (user) => {
         });
     });
 };
+
+module.exports.findUserById = (id) => {
+    return new Promise((resolve,reject)=>{
+        User.findById(id).then((data)=>{
+            resolve(data);
+        }).catch((err)=>{
+            reject(err);
+        })
+    })
+}

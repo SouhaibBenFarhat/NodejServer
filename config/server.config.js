@@ -4,6 +4,7 @@ module.exports.PORT="5000";
 
 //Security
 module.exports.secret = "youcantgetmysecret";
+module.exports.BEARER = "Bearer";
 
 
 

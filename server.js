@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const http = require('http').Server(app);
 const mongoose = require('mongoose');
+const PORT = require('./config/server.config.js').PORT;
 
 
 
@@ -12,13 +13,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 mongoose.Promise = global.Promise;
-mongoose.connect(require('./config/server.config.js').databaseUrl, { useMongoClient: true } ,function(err){
-    if(err){
+mongoose.connect(require('./config/server.config.js').databaseUrl, { useMongoClient: true }, function (err) {
+    if (err) {
         console.log('Failed to connect to mongo database ' + err);
-    }else{
+    } else {
         console.log('connected to mongo database ');
     }
- 
+
 });
 mongoose.connection.on('connected', function () {
     console.log('Mongoose default connection open');
@@ -45,12 +46,13 @@ const secureApi = require('./api/api.v1.secure.js');
 
 
 app.use('/api', publicApi);
+app.use('/api/v1', secureApi);
 
 
 
 
 
-app.set('port',require('./config/server.config.js').PORT);
+app.set('port', PORT);
 http.listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });

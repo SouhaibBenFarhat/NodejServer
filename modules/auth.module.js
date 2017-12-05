@@ -39,7 +39,7 @@ module.exports.register = (user) => {
 }
 
 module.exports.login = (email, password) => {
-    return new Promise((resolve, reject) => {    
+    return new Promise((resolve, reject) => {
         var rules = new Strings.Rule;
         rules.setIsEmail();
         var errors = validate(email, rules);
@@ -62,7 +62,7 @@ module.exports.login = (email, password) => {
                 } else {
                     reject("Wrong Password");
                 }
-            }else{
+            } else {
                 reject('User not found');
             }
 
@@ -71,4 +71,20 @@ module.exports.login = (email, password) => {
         })
     });
 
+}
+
+
+module.exports.getInfoFromToken = (token) => {
+    return new Promise((resolve, reject) => {
+        let decoded = jwt.decode(token);
+        User.findUserByEmail(decoded.email).then((data) => {
+            if (data) {
+                resolve(data);
+            } else {
+                reject('User not found...');
+            }
+        }).catch((err) => {
+            reject(err);
+        });
+    })
 }
