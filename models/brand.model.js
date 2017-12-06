@@ -19,7 +19,7 @@ module.exports.findAllBrands = () => {
             //reject(err);
         })
 
-    })
+    });
 };
 
 module.exports.addBrand = (brand) => {
