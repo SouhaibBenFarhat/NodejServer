@@ -11,6 +11,7 @@ const productRouter = require('../routes/product.router.js');
 const categoryRouter = require('../routes/category.router.js');
 
 
+
 router.use(requestValidator);
 router.use('/brand', brandRouter);
 router.use('/category',categoryRouter);
