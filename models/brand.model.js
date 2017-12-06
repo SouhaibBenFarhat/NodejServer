@@ -38,7 +38,7 @@ module.exports.deleteBrand = (brand)=>{
             resolve(data);
         }).catch((err)=>{
             reject(err);
-        })
+        });
     });
 }
 
