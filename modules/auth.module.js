@@ -60,7 +60,7 @@ module.exports.login = (email, password) => {
                     user.token = token;
                     resolve(user);
                 } else {
-                    reject("Wrong Password");
+                    reject("Wrong Email or Password");
                 }
             } else {
                 reject('User not found');
