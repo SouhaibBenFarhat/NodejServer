@@ -15,6 +15,17 @@ router.get('/', (req, res) => {
 
 });
 
+router.get('/:limit', (req, res) => {
+
+    let limit = req.params.limit;
+    productModule.findProductWithLimit(Number(limit)).then((data) => {
+        response.accepted(res, data);
+    }).catch((err) => {
+        console.log(err);
+        response.badRequest(res, err)
+    });
+});
+
 router.post('/', (req, res) => {
     productModule.addProduct(req.body).then((data) => {
         response.accepted(res, data);

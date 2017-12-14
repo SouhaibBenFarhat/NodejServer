@@ -11,6 +11,16 @@ module.exports.findAllProducts = () => {
     });
 }
 
+module.exports.findProductWithLimit = (limit) => {
+    return new Promise((resolve, reject) => {
+        Product.getProductWithLimit(limit).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    });
+}
+
 module.exports.addProduct = (product) => {
     return new Promise((resolve, reject) => {
         Product.addProduct(product).then((data) => {

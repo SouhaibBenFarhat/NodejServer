@@ -3,9 +3,23 @@ const mongoose = require('mongoose');
 const productSchema = new mongoose.Schema({
 
     name: String,
+    secondName: String,
     description: String,
-    date: String,
-    image: String
+    date: {
+        type: Date,
+        default: Date.now
+    },
+    image: String,
+    largeImage: String,
+    price: Number,
+    reduction: Boolean,
+    newPrice: Number,
+    currency: {
+        type: String,
+        default: "TDN"
+    }
+
+
 });
 
 var Product = module.exports = mongoose.model('Product', productSchema);
@@ -20,6 +34,16 @@ module.exports.findAllProducts = () => {
     });
 }
 
+module.exports.getProductWithLimit = (limit) => {
+    return new Promise((resolve, reject) => {
+        Product.find({}).limit(limit).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        });
+    });
+}
+
 module.exports.addProduct = (product) => {
     return new Promise((resolve, reject) => {
         Product.create(product).then((data) => {
@@ -29,6 +53,8 @@ module.exports.addProduct = (product) => {
         })
     });
 }
+
+
 
 module.exports.deleteProduct = (product) => {
     return new Promise((resolve, reject) => {
