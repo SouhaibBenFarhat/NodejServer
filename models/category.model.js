@@ -6,7 +6,10 @@ const categorySchema = new mongoose.Schema({
     name: String,
     logo: String,
     date: String,
-    nbProduct: Number,
+    productsNumber: {
+        type: Number,
+        default: 0
+    },
     description: String,
     products: [productSchema]
 

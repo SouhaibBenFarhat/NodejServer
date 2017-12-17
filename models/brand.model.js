@@ -4,8 +4,16 @@ const config = require('../config/server.config.js');
 const brandSchema = new mongoose.Schema({
     name: String,
     description: String,
-    date: String,
-    image: String
+    date: {
+        type:String,
+        default:Date.now
+    },
+    image: String,
+    logo:String,
+    productsNumber:{
+        type:Number,
+        default: 0
+    }
 });
 
 var Brand = module.exports = mongoose.model('Brand', brandSchema);
