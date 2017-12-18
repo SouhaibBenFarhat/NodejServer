@@ -13,6 +13,16 @@ module.exports.findAllCategories = () => {
 
 };
 
+module.exports.findCategoriesWithLimit = (limit) => {
+    return new Promise((resolve, reject) => {
+        Category.getCategoriesWithLimit(limit).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    });
+}
+
 module.exports.addCategory = (category) => {
     return new Promise((resolve, reject) => {
         Category.addCategory(category).then((data) => {

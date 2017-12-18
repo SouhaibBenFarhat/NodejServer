@@ -5,15 +5,16 @@ const categorySchema = new mongoose.Schema({
 
     name: String,
     logo: String,
-    date: String,
+    image:String,
+    date: {
+        type:Date,
+        default:Date.now
+    },
     productsNumber: {
         type: Number,
         default: 0
     },
     description: String,
-    products: [productSchema]
-
-
 });
 
 var Category = module.exports = mongoose.model('Category', categorySchema);
@@ -28,6 +29,16 @@ module.exports.findAllCategories = () => {
     });
 
 };
+
+module.exports.getCategoriesWithLimit = (limit) => {
+    return new Promise((resolve, reject) => {
+        Category.find({}).limit(limit).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        });
+    });
+}
 
 module.exports.addCategory = (category) => {
     return new Promise((resolve, reject) => {

@@ -11,6 +11,17 @@ router.get('/', (req, res) => {
     })
 });
 
+router.get('/:limit', (req, res) => {
+    
+        let limit = req.params.limit;
+        categoryModule.findCategoriesWithLimit(Number(limit)).then((data) => {
+            response.accepted(res, data);
+        }).catch((err) => {
+            console.log(err);
+            response.badRequest(res, err)
+        });
+    });
+
 router.post('/', (req, res) => {
     categoryModule.addCategory(req.body).then((data) => {
         response.accepted(res, data);
