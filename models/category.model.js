@@ -5,10 +5,10 @@ const categorySchema = new mongoose.Schema({
 
     name: String,
     logo: String,
-    image:String,
+    image: String,
     date: {
-        type:Date,
-        default:Date.now
+        type: Date,
+        default: Date.now
     },
     productsNumber: {
         type: Number,
@@ -18,6 +18,16 @@ const categorySchema = new mongoose.Schema({
 });
 
 var Category = module.exports = mongoose.model('Category', categorySchema);
+
+module.exports.findCategoryById = (id) => {
+    return new Promise((resolve, reject) => {
+        Category.findById(id).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    });
+}
 
 module.exports.findAllCategories = () => {
     return new Promise((resolve, reject) => {

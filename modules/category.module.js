@@ -2,6 +2,17 @@
 const Category = require('../models/category.model.js');
 
 
+module.exports.findCategoryById = (id) => {
+    return new Promise((resolve, reject) => {
+        Category.findCategoryById(id).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    })
+}
+
+
 module.exports.findAllCategories = () => {
     return new Promise((resolve, reject) => {
         Category.findAllCategories().then((data) => {
