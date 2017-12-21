@@ -17,7 +17,9 @@ const productSchema = new mongoose.Schema({
     currency: {
         type: String,
         default: "TDN"
-    }
+    },
+    categoryId: String
+
 
 
 });
@@ -32,6 +34,16 @@ module.exports.findAllProducts = () => {
             reject(err);
         })
     });
+}
+
+module.exports.findProductsByCategoryId = (categoryId) => {
+    return new Promise((resolve, reject) => {
+        Product.find({ categoryId: categoryId }).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    })
 }
 
 module.exports.getProductWithLimit = (limit) => {

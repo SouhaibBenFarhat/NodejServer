@@ -6,12 +6,24 @@ const productModule = require('../modules/product.module.js');
 
 
 router.get('/', (req, res) => {
-    productModule.findAllProducts().then((data) => {
-        response.accepted(res, data);
-    }).catch((err) => {
-        response.badRequest(res, err);
-        console.log(err);
-    });
+
+    if (req.query.categoryId) {
+        productModule.findProductsByCategoryId(req.query.categoryId).then((data) => {
+            response.accepted(res, data);
+        }).catch((err) => {
+            console.log(err);
+            response.badRequest(res, err);
+        })
+
+
+    } else {
+        productModule.findAllProducts().then((data) => {
+            response.accepted(res, data);
+        }).catch((err) => {
+            response.badRequest(res, err);
+            console.log(err);
+        });
+    }
 
 });
 
@@ -30,6 +42,7 @@ router.post('/', (req, res) => {
     productModule.addProduct(req.body).then((data) => {
         response.accepted(res, data);
     }).catch((err) => {
+        console.log(err);        
         response.badRequest(res, err);
     });
 
@@ -39,6 +52,7 @@ router.delete('/', (req, res) => {
     productModule.deleteProduct(req.body).then((data) => {
         response.accepted(res, 'Successfully deleted...');
     }).catch((err) => {
+        console.log(err);        
         response.badRequest(res, err);
     });
 
