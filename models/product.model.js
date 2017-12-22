@@ -36,6 +36,16 @@ module.exports.findAllProducts = () => {
     });
 }
 
+module.exports.findProductById = (id) => {
+    return new Promise((resolve, reject) => {
+        Product.findById(id).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        });
+    })
+}
+
 module.exports.findProductsByCategoryId = (categoryId) => {
     return new Promise((resolve, reject) => {
         Product.find({ categoryId: categoryId }).then((data) => {
