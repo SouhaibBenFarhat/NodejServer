@@ -18,14 +18,25 @@ router.get('/', (req, res) => {
     }
 
     else if (req.query.categoryId) {
-        productModule.findProductsByCategoryId(req.query.categoryId).then((data) => {
-            response.accepted(res, data);
-            return;
-        }).catch((err) => {
-            console.log(err);
-            response.badRequest(res, err);
-            return;
-        });
+        if (req.query.limit > 0) {
+            productModule.findProductsByCategoryId(req.query.categoryId, Number(req.query.limit)).then((data) => {
+                response.accepted(res, data);
+                return;
+            }).catch((err) => {
+                console.log(err);
+                response.badRequest(res, err);
+                return;
+            });
+        } else {
+            productModule.findProductsByCategoryId(req.query.categoryId,null).then((data) => {
+                response.accepted(res, data);
+                return;
+            }).catch((err) => {
+                console.log(err);
+                response.badRequest(res, err);
+                return;
+            });
+        }
 
 
     } else {

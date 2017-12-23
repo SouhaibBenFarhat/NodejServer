@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Property = require('./property.model');
 
 const productSchema = new mongoose.Schema({
 
@@ -18,7 +19,13 @@ const productSchema = new mongoose.Schema({
         type: String,
         default: "TDN"
     },
-    categoryId: String
+    categoryId: String,
+    properties : {
+        type: [Property.schema]
+    },
+    images:[String],
+    quantity:Number
+
 
 
 
@@ -46,9 +53,9 @@ module.exports.findProductById = (id) => {
     })
 }
 
-module.exports.findProductsByCategoryId = (categoryId) => {
+module.exports.findProductsByCategoryId = (categoryId,limit) => {
     return new Promise((resolve, reject) => {
-        Product.find({ categoryId: categoryId }).then((data) => {
+        Product.find({ categoryId: categoryId }).limit(limit).then((data) => {
             resolve(data);
         }).catch((err) => {
             reject(err);

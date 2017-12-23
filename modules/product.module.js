@@ -31,9 +31,9 @@ module.exports.findProductWithLimit = (limit) => {
     });
 }
 
-module.exports.findProductsByCategoryId = (categoryId) => {
+module.exports.findProductsByCategoryId = (categoryId,limit) => {
     return new Promise((resolve, reject) => {
-        Product.findProductsByCategoryId(categoryId).then((data) => {
+        Product.findProductsByCategoryId(categoryId,limit).then((data) => {
             resolve(data);
         }).catch((err) => {
             reject(err);
