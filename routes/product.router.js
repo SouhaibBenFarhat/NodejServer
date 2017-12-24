@@ -28,7 +28,7 @@ router.get('/', (req, res) => {
                 return;
             });
         } else {
-            productModule.findProductsByCategoryId(req.query.categoryId,null).then((data) => {
+            productModule.findProductsByCategoryId(req.query.categoryId, null).then((data) => {
                 response.accepted(res, data);
                 return;
             }).catch((err) => {
@@ -49,6 +49,26 @@ router.get('/', (req, res) => {
     }
 
 });
+
+
+router.get('/by-brand/:brandId', (req, res) => {
+
+    let brandId = req.params.brandId;
+    if (brandId != null && brandId != undefined) {
+        productModule.findProductByBrandId(brandId).then((data) => {
+            response.accepted(res, data);
+        }).catch((err) => {
+            response.badRequest(res, err);
+        })
+    }
+    else {
+        response.badRequest('cannot get data');
+    }
+
+});
+
+
+
 
 router.get('/:limit', (req, res) => {
 

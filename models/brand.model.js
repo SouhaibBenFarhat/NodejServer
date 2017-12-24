@@ -19,9 +19,19 @@ const brandSchema = new mongoose.Schema({
 var Brand = module.exports = mongoose.model('Brand', brandSchema);
 
 
+module.exports.findBrandById = (id) => {
+    return new Promise((resolve, reject) => {
+        Brand.findById(id).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    });
+}
+
 module.exports.findAllBrands = () => {
     return new Promise((resolve, reject) => {
-        Brand.find({}).then((data) => {
+        Brand.find({}).sort({ productsNumber: 'desc' }).then((data) => {
             resolve(data);
         }).catch((err) => {
             reject(err);
@@ -33,7 +43,7 @@ module.exports.findAllBrands = () => {
 
 module.exports.findTopBrands = () => {
     return new Promise((resolve, reject) => {
-        Brand.find({}).limit(10).then((data) => {
+        Brand.find({}).limit(10).sort({ productsNumber: 'desc' }).then((data) => {
             resolve(data);
         }).catch((err) => {
             reject(err);

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const Property = require('./property.model');
+const Property = require('./property.model.js');
+const brand = require('./brand.model.js');
 
 const productSchema = new mongoose.Schema({
 
@@ -20,11 +21,14 @@ const productSchema = new mongoose.Schema({
         default: "TDN"
     },
     categoryId: String,
-    properties : {
+    properties: {
         type: [Property.schema]
     },
-    images:[String],
-    quantity:Number
+    images: [String],
+    quantity: Number,
+    brand: {
+        type: brand.schema
+    }
 
 
 
@@ -53,7 +57,17 @@ module.exports.findProductById = (id) => {
     })
 }
 
-module.exports.findProductsByCategoryId = (categoryId,limit) => {
+module.exports.findProductByBrandId = (brandId) => {
+    return new Promise((resolve, reject) => {
+        Product.find({ 'brand._id': brandId }).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        });
+    })
+}
+
+module.exports.findProductsByCategoryId = (categoryId, limit) => {
     return new Promise((resolve, reject) => {
         Product.find({ categoryId: categoryId }).limit(limit).then((data) => {
             resolve(data);
