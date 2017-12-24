@@ -5,13 +5,13 @@ const brandSchema = new mongoose.Schema({
     name: String,
     description: String,
     date: {
-        type:String,
-        default:Date.now
+        type: String,
+        default: Date.now
     },
     image: String,
-    logo:String,
-    productsNumber:{
-        type:Number,
+    logo: String,
+    productsNumber: {
+        type: Number,
         default: 0
     }
 });
@@ -24,11 +24,22 @@ module.exports.findAllBrands = () => {
         Brand.find({}).then((data) => {
             resolve(data);
         }).catch((err) => {
-            //reject(err);
+            reject(err);
         })
 
     });
 };
+
+
+module.exports.findTopBrands = () => {
+    return new Promise((resolve, reject) => {
+        Brand.find({}).limit(10).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    });
+}
 
 module.exports.addBrand = (brand) => {
     return new Promise((resolve, reject) => {
@@ -40,11 +51,11 @@ module.exports.addBrand = (brand) => {
     })
 };
 
-module.exports.deleteBrand = (brand)=>{
-    return new Promise((resolve,reject)=>{
-        Brand.findByIdAndRemove({_id:brand._id}).then((data)=>{
+module.exports.deleteBrand = (brand) => {
+    return new Promise((resolve, reject) => {
+        Brand.findByIdAndRemove({ _id: brand._id }).then((data) => {
             resolve(data);
-        }).catch((err)=>{
+        }).catch((err) => {
             reject(err);
         });
     });

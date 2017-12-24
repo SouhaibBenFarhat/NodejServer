@@ -13,6 +13,16 @@ module.exports.findAllBrands = () => {
     });
 };
 
+module.exports.findTopBrands = () => {
+    return new Promise((resolve, reject) => {
+        Brand.findTopBrands().then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    })
+}
+
 module.exports.addBrand = (brand) => {
     return new Promise((resolve, reject) => {
         Brand.addBrand(brand).then((data) => {
