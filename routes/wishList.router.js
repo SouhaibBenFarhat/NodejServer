@@ -38,7 +38,7 @@ router.post('/', (req, res) => {
         response.accepted(res, data);
     }).catch((err) => {
         response.badRequest(res, 'Product Already exist');
-    })
+    });
 })
 
 module.exports = router;
