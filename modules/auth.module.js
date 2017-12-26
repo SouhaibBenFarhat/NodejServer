@@ -77,8 +77,11 @@ module.exports.login = (email, password) => {
 module.exports.getInfoFromToken = (token) => {
     return new Promise((resolve, reject) => {
         let decoded = jwt.decode(token);
+        if(decoded == null && decoded == undefined){
+            reject('User not found...');
+        }
         User.findUserByEmail(decoded.email).then((data) => {
-            if (data) {
+            if (data != null && data != undefined) {
                 resolve(data);
             } else {
                 reject('User not found...');

@@ -16,6 +16,13 @@ module.exports = function (req, res, next) {
 
         if ((token) && (prefix === config.BEARER)) {
             var decoded = jwt.decode(token, config.secret);
+            if(decoded == null && decoded == undefined){
+                res.status(401);
+                res.json({
+                    "status": 401,
+                    "message": "invalid token or key"
+                });
+            }
             User.findUserByEmail(decoded.email).then((data) => {
                 if (data) {
                     next();
