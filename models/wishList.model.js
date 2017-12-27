@@ -6,7 +6,7 @@ const wishListSchema = new mongoose.Schema({
     productId: {
         type: String,
         default: null,
-        index:true,
+        index: true,
         unique: true
     },
     userId: {
@@ -36,6 +36,16 @@ module.exports.addToWishList = (wishList) => {
     return new Promise((resolve, reject) => {
         WishList.create(wishList).then((data) => {
             resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    });
+}
+
+module.exports.removeFromWishList = (id) => {
+    return new Promise((resolve, reject) => {
+        WishList.findByIdAndRemove(id).then((data) => {
+            resolve();
         }).catch((err) => {
             reject(err);
         })
