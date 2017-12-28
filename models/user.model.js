@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
+const personalDetail = require('./personalDetail.model.js');
+const address = require('./address.model.js');
 const config = require('../config/server.config.js');
+
 
 
 const userSchema = new mongoose.Schema({
 
-    firstname: String,
-    lastname: String,
+
     email: String,
     password: String,
     profilePictureUrl: {
@@ -32,6 +34,13 @@ const userSchema = new mongoose.Schema({
     firstTime: {
         type: Boolean,
         default: true
+    },
+    personalDetail: {
+        type: personalDetail.schema,
+        default: null
+    },
+    addresses: {
+        type: [address.schema]
     }
 
 
@@ -39,6 +48,18 @@ const userSchema = new mongoose.Schema({
 });
 
 const User = module.exports = mongoose.model('User', userSchema);
+
+
+module.exports.findAllUsers = () => {
+    return new Promise((resolve, rejecet) => {
+        User.find({}).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            rejecet(err);
+        })
+    })
+}
+
 
 module.exports.findUserByEmail = function (email) {
     return new Promise((resolve, reject) => {
@@ -60,11 +81,22 @@ module.exports.addUser = (user) => {
     });
 };
 
-module.exports.findUserById = (id) => {
-    return new Promise((resolve,reject)=>{
-        User.findById(id).then((data)=>{
+
+module.exports.updateUser = (user) => {
+    return new Promise((resolve, reject) => {
+        User.findByIdAndUpdate(user._id, user, { new: true }).then((data) => {
             resolve(data);
-        }).catch((err)=>{
+        }).catch((err) => {
+            reject(err);
+        })
+    })
+}
+
+module.exports.findUserById = (id) => {
+    return new Promise((resolve, reject) => {
+        User.findById(id).then((data) => {
+            resolve(data);
+        }).catch((err) => {
             reject(err);
         })
     })
