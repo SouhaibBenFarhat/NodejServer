@@ -37,6 +37,45 @@ router.put('/personal-detail', (req, res) => {
     });
 });
 
+
+router.delete('/address', (req, res) => {
+    if(!req.body.id){
+        response.badRequest(res,'bad request');
+        return;
+    }
+
+    let address_id = req.body.id;
+    
+
+    let header = req.headers.authorization;
+    let arr = header.split(' ');
+    let token = arr[1];
+
+    if (arr[0] !== config.BEARER && token == null && token == undefined) {
+        response.badRequest(res, 'Not a valid request');
+        return;
+    }
+
+    authModule.getInfoFromToken(token).then((data) => {
+        for (let i = 0; i < data.addresses.length; i++) {
+            if (data.addresses[i]._id == address_id) {
+                data.addresses.splice(i, 1);
+                break;
+            }
+        }
+
+        userModule.updateUser(data).then((user) => {
+            response.accepted(res, user);
+        }).catch((err) => {
+            reject(err);
+        });
+    }).catch((err) => {
+        response.badRequest(res, err);
+    });
+
+
+})
+
 router.put('/address', (req, res) => {
     let addresses = req.body;
     if (addresses == null || addresses == undefined) {
@@ -52,9 +91,9 @@ router.put('/address', (req, res) => {
         response.badRequest(res, 'Not a valid request');
         return;
     }
-    
+
     authModule.getInfoFromToken(token).then((data) => {
-        data.addresses = addresses;
+        data.addresses = data.addresses.concat(addresses);
         userModule.updateUser(data).then((user) => {
             response.accepted(res, user);
         }).catch((err) => {

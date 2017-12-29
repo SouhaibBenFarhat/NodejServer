@@ -2,11 +2,26 @@ const mongoose = require('mongoose');
 
 const addressSchema = new mongoose.Schema({
 
-    address: String,
-    indication: String,
-    region: String,
-    state: String,
-    code: String
+    address: {
+        type: String,
+        required: true
+    },
+    indication: {
+        type: String,
+        required: false
+    },
+    region: {
+        type: String,
+        required: true
+    },
+    state: {
+        type: String,
+        required: true
+    },
+    code: {
+        type: Number,
+        required: true
+    }
 
 
 });
