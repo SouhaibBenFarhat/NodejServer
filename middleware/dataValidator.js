@@ -4,7 +4,21 @@ const response = require('dark-snow-response');
 const validationTools = require('./validationTools.js');
 
 
+router.post('*/login', (req, res, next) => {
+    if (validationTools.validateLoginData(req.body)) {
+        next();
+    } else {
+        response.badRequest(res, 'Invalid login data');
+    }
+});
 
+router.post('*/register', (req, res, next) => {
+    if (validationTools.validateLoginData(req.body)) {
+        next();
+    } else {
+        response.badRequest(res, 'Invalid register data');
+    }
+})
 
 
 router.put('*/personal-detail', (req, res, next) => {
