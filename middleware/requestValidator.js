@@ -14,14 +14,22 @@ module.exports = function (req, res, next) {
         prefix = head[0];
         token = head[1];
 
-        if ((token) && (prefix === config.BEARER)) {
+
+
+
+
+        if ((token != null) && (prefix === config.BEARER)) {
+
+
+
             var decoded = jwt.decode(token, config.secret);
-            if(decoded == null && decoded == undefined){
+            if (decoded == null || decoded == undefined) {
                 res.status(401);
                 res.json({
                     "status": 401,
                     "message": "invalid token or key"
                 });
+                return;
             }
             User.findUserByEmail(decoded.email).then((data) => {
                 if (data) {
