@@ -18,7 +18,6 @@ module.exports.validateRegisterData = (data) => {
 
 
 module.exports.validatePersonalDetail = (data) => {
-    let valid = false;
     if (data.hasOwnProperty('gender') &&
         data.hasOwnProperty('firstname') &&
         data.hasOwnProperty('phone') &&
