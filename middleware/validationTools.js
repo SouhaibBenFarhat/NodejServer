@@ -6,7 +6,7 @@ module.exports.validateLoginData = (data) => {
     }
 }
 
-module.exports.validateRegisterData = (data) =>{
+module.exports.validateRegisterData = (data) => {
     if (data.hasOwnProperty('email') && data.hasOwnProperty('password') && Object.keys(data).length === 2) {
         return true;
     } else {
@@ -45,7 +45,8 @@ module.exports.validateAddress = (data) => {
                 data[i].hasOwnProperty('region') &&
                 data[i].hasOwnProperty('state') &&
                 data[i].hasOwnProperty('code') &&
-                Object.keys(data[i]).length === 5
+                data[i].hasOwnProperty('default') &&
+                Object.keys(data[i]).length === 6
             ) {
                 valid = true;
             } else {

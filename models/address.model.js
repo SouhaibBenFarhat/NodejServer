@@ -21,6 +21,11 @@ const addressSchema = new mongoose.Schema({
     code: {
         type: Number,
         required: true
+    },
+    default: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 
 

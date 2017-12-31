@@ -22,30 +22,36 @@ router.put('/personal-detail', (req, res) => {
 
     if (arr[0] !== config.BEARER && token == null && token == undefined) {
         response.badRequest(res, 'Not a valid request');
+        console.log('Not a valide request')
         return;
     }
 
     authModule.getInfoFromToken(token).then((data) => {
         data.personalDetail = req.body;
+        if (data.firstTime === true) {
+            data.firstTime = false;
+        }
         userModule.updateUser(data).then((user) => {
             response.accepted(res, user);
         }).catch((err) => {
+            console.log(err);            
             reject(err);
         });
     }).catch((err) => {
+        console.log(err);
         response.badRequest(res, err);
     });
 });
 
 
 router.delete('/address', (req, res) => {
-    if(!req.body.id){
-        response.badRequest(res,'bad request');
+    if (!req.body.id) {
+        response.badRequest(res, 'bad request');
         return;
     }
 
     let address_id = req.body.id;
-    
+
 
     let header = req.headers.authorization;
     let arr = header.split(' ');

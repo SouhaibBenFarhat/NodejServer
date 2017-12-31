@@ -8,6 +8,9 @@ const config = require('../config/server.config.js');
 
 module.exports.register = (user) => {
     return new Promise((resolve, reject) => {
+
+        let passwordToKeep = user.password;
+
         var rules = new Strings.Rule;
         rules.setIsEmail();
         var errors = validate(user.email, rules);
@@ -25,7 +28,15 @@ module.exports.register = (user) => {
                     user.password = hash;
                     user.salt = salt;
                     User.addUser(user).then((data) => {
-                        resolve(data);
+                        this.login(user.email, passwordToKeep).then((user) => {
+                            if (user) {
+                                resolve(user);
+                            } else {
+                                reject('Please signin again');
+                            }
+                        }).catch((err) => {
+                            reject(err);
+                        })
                     }).catch((err) => {
                         reject(err);
                     });
@@ -77,7 +88,7 @@ module.exports.login = (email, password) => {
 module.exports.getInfoFromToken = (token) => {
     return new Promise((resolve, reject) => {
         let decoded = jwt.decode(token);
-        if(decoded == null && decoded == undefined){
+        if (decoded == null && decoded == undefined) {
             reject('User not found...');
         }
         User.findUserByEmail(decoded.email).then((data) => {
