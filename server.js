@@ -4,12 +4,12 @@ const app = express();
 const http = require('http').Server(app);
 const mongoose = require('mongoose');
 const PORT = require('./config/server.config.js').PORT;
-
-
+const fileupload = require('express-fileupload');
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(fileupload());
 
 
 mongoose.Promise = global.Promise;

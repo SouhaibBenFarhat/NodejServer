@@ -6,6 +6,12 @@ const authRouter = require('../routes/auth.router.js');
 const dataValidator = require('../middleware/dataValidator.js');
 
 
+// File Upload Router
+router.use("/uploads", express.static('uploads'));
+
+
+
+
 router.use(dataValidator);
 router.use('/auth', authRouter);
 
