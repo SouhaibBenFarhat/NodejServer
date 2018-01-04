@@ -14,14 +14,7 @@ module.exports = function (req, res, next) {
         prefix = head[0];
         token = head[1];
 
-
-
-
-
         if ((token != null) && (prefix === config.BEARER)) {
-
-
-
             var decoded = jwt.decode(token, config.secret);
             if (decoded == null || decoded == undefined) {
                 res.status(401);

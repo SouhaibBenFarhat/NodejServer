@@ -21,6 +21,7 @@
     "long": "^3.2.0",
     "mmmagic": "^0.4.6",
     "mongoose": "^4.13.6",
+    "nodemailer": "^4.4.1",
     "nodemon": "^1.12.1"
   }
 }

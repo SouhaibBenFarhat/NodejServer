@@ -41,6 +41,15 @@ const userSchema = new mongoose.Schema({
     },
     addresses: {
         type: [address.schema]
+    },
+    confirmed: {
+        type: Boolean,
+        default: false
+
+    },
+    temporaryToken:{
+        type:String,
+        default:null
     }
 
 
