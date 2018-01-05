@@ -51,6 +51,22 @@ router.get('/', (req, res) => {
 });
 
 
+router.get('/pagination', (req, res) => {
+    let skip = req.query.skip;
+    let limit = req.query.limit;
+    if (skip == null || limit == null || skip == undefined || limit == undefined || skip.length == 0 || limit.length == 0) {
+        response.badRequest(res, 'Invalid Request');
+        return;
+    }
+    productModule.findProductsWishPagination(skip, limit).then((data) => {
+
+        response.accepted(res, data);
+    }).catch((err) => {
+        response.badRequest(res, err);
+    });
+})
+
+
 router.get('/by-brand/:brandId', (req, res) => {
 
     let brandId = req.params.brandId;
@@ -90,6 +106,8 @@ router.post('/', (req, res) => {
     });
 
 });
+
+
 
 router.delete('/', (req, res) => {
     productModule.deleteProduct(req.body).then((data) => {

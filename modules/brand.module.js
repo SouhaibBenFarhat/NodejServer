@@ -33,6 +33,16 @@ module.exports.addBrand = (brand) => {
     });
 };
 
+module.exports.findBrandById = (brandId) => {
+    return new Promise((resolve, reject) => {
+        Brand.findBrandById(brandId).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    })
+}
+
 module.exports.deleteBrand = (brand) => {
     return new Promise((resolve, reject) => {
         Brand.deleteBrand(brand).then((data) => {

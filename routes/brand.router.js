@@ -5,19 +5,32 @@ const brandModule = require('../modules/brand.module.js');
 
 
 
+
 router.get('/', (req, res) => {
-    brandModule.findAllBrands().then((data) => {
+
+    let id = req.query.id;
+    if (id != null && id != undefined) {
+        brandModule.findBrandById(id).then((data) => {
+            response.accepted(res, data);
+        }).catch((err) => {
+            response.badRequest(res, err);
+        })
+    } else {
+        brandModule.findAllBrands().then((data) => {
+            response.accepted(res, data);
+        }).catch((err) => {
+            response.badRequest(res, err);
+        })
+    }
+});
+
+
+
+router.get('/top-brands', (req, res) => {
+    brandModule.findTopBrands().then((data) => {
         response.accepted(res, data);
     }).catch((err) => {
         response.badRequest(res, err);
-    })
-});
-
-router.get('/top-brands', (req, res) => {
-    brandModule.findTopBrands().then((data)=>{
-        response.accepted(res,data);
-    }).catch((err)=>{
-        response.badRequest(res,err);
     })
 
 });

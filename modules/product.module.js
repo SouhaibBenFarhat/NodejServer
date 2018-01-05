@@ -11,6 +11,16 @@ module.exports.findAllProducts = () => {
     });
 }
 
+module.exports.findProductsWishPagination = (skip, limit) => {
+    return new Promise((resolve, reject) => {
+        Product.findProductsWishPagination(skip, limit).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    })
+}
+
 module.exports.findProductById = (id) => {
     return new Promise((resolve, reject) => {
         Product.findProductById(id).then((data) => {
@@ -21,11 +31,11 @@ module.exports.findProductById = (id) => {
     })
 }
 
-module.exports.findProductByBrandId = (brandId) =>{
-    return new Promise((resolve,reject)=>{
-        Product.findProductByBrandId(brandId).then((data)=>{
+module.exports.findProductByBrandId = (brandId) => {
+    return new Promise((resolve, reject) => {
+        Product.findProductByBrandId(brandId).then((data) => {
             resolve(data);
-        }).catch((err)=>{
+        }).catch((err) => {
             reject(err);
         })
     })

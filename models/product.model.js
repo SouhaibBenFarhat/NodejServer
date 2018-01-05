@@ -46,6 +46,15 @@ module.exports.findAllProducts = () => {
         })
     });
 }
+module.exports.findProductsWishPagination = (skip, limit) => {
+    return new Promise((resolve, reject) => {
+        Product.find({}).skip(Number(skip)).limit(Number(limit)).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    });
+}
 
 module.exports.findProductById = (id) => {
     return new Promise((resolve, reject) => {
