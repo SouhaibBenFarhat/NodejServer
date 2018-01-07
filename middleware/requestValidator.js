@@ -15,33 +15,46 @@ module.exports = function (req, res, next) {
         token = head[1];
 
         if ((token != null) && (prefix === config.BEARER)) {
-            var decoded = jwt.decode(token, config.secret);
-            if (decoded == null || decoded == undefined) {
-                res.status(401);
-                res.json({
-                    "status": 401,
-                    "message": "invalid token or key"
-                });
-                return;
-            }
-            User.findUserByEmail(decoded.email).then((data) => {
-                if (data) {
-                    next();
-                } else {
-                    res.status(500);
-                    res.json({
-                        "status": 500,
-                        "message": "user not found"
-                    });
-                }
-            }).catch((err) => {
-                res.status(500);
-                res.json({
-                    "status": 500,
-                    "message": "user not found"
+            jwt.verify(token, config.secret, (err, decoded) => {
+                if (err) {
+                    console.log(err);
 
-                });
-            })
+                    res.status(401);
+                    res.json({
+                        "status": 401,
+                        "message": "Invalid Token or Key"
+                    });
+                    return;
+                } else {
+                    if (decoded == null || decoded == undefined) {
+                        res.status(401);
+                        res.json({
+                            "status": 401,
+                            "message": "invalid token or key"
+                        });
+                        return;
+                    }
+                    User.findUserByEmail(decoded.email).then((data) => {
+                        if (data) {
+                            next();
+                        } else {
+                            res.status(500);
+                            res.json({
+                                "status": 500,
+                                "message": "user not found"
+                            });
+                        }
+                    }).catch((err) => {
+                        res.status(500);
+                        res.json({
+                            "status": 500,
+                            "message": "user not found"
+
+                        });
+                    })
+                }
+            });
+
         } else {
             res.status(401);
             res.json({

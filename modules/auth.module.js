@@ -204,6 +204,7 @@ module.exports.login = (email, password) => {
                     data.token = token;
                     let user = data;
                     user.token = token;
+                    console.log(token);
                     resolve(user);
                 } else {
                     reject("Invalid Email or Password");
@@ -222,37 +223,49 @@ module.exports.login = (email, password) => {
 
 module.exports.getInfoFromToken = (token) => {
     return new Promise((resolve, reject) => {
-        let decoded = jwt.decode(token);
-        if (decoded == null && decoded == undefined) {
-            reject('User not found...');
-        }
-        User.findUserByEmail(decoded.email).then((data) => {
-            if (data != null && data != undefined) {
-                resolve(data);
+        jwt.verify(token, config.secret, (err, decoded) => {
+            if (err) {
+                reject(err.message);
             } else {
-                reject('User not found...');
+                if (decoded == null && decoded == undefined) {
+                    reject('User not found...');
+                }
+                User.findUserByEmail(decoded.email).then((data) => {
+                    if (data != null && data != undefined) {
+                        resolve(data);
+                    } else {
+                        reject('User not found...');
+                    }
+                }).catch((err) => {
+                    reject(err);
+                });
             }
-        }).catch((err) => {
-            reject(err);
         });
+
     })
 }
 
 module.exports.getInfoFromTemporaryToken = (token) => {
     return new Promise((resolve, reject) => {
-        let decoded = jwt.decode(token);
-        if (decoded == null && decoded == undefined) {
-            reject('User not found...');
-        }
-        User.findUserByEmail(decoded.email).then((data) => {
-            if (data != null && data != undefined) {
-                resolve(data);
+        jwt.verify(token, config.secret, (err, decoded) => {
+            if (err) {
+                reject(err.message);
             } else {
-                reject('User not found...');
+                if (decoded == null && decoded == undefined) {
+                    reject('User not found...');
+                }
+                User.findUserByEmail(decoded.email).then((data) => {
+                    if (data != null && data != undefined) {
+                        resolve(data);
+                    } else {
+                        reject('User not found...');
+                    }
+                }).catch((err) => {
+                    reject(err);
+                });
             }
-        }).catch((err) => {
-            reject(err);
         });
+
     })
 }
 
