@@ -14,15 +14,15 @@ const wishListRouter = require('../routes/wishList.router.js');
 const userRouter = require('../routes/user.router.js');
 const fileRouter = require('../routes/fileUpload.router.js');
 
-
 router.use(requestValidator);
 router.use(dataValidator);
 router.use('/brand', brandRouter);
-router.use('/category', categoryRouter);
 router.use('/product', productRouter);
 router.use('/wish-list', wishListRouter);
 router.use('/user', userRouter);
 router.use('/upload', fileRouter);
+router.use('/category', categoryRouter);
+
 
 
 

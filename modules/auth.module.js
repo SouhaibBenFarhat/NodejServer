@@ -204,7 +204,6 @@ module.exports.login = (email, password) => {
                     data.token = token;
                     let user = data;
                     user.token = token;
-                    console.log(token);
                     resolve(user);
                 } else {
                     reject("Invalid Email or Password");

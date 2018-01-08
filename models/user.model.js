@@ -47,9 +47,9 @@ const userSchema = new mongoose.Schema({
         default: false
 
     },
-    temporaryToken:{
-        type:String,
-        default:null
+    temporaryToken: {
+        type: String,
+        default: null
     }
 
 

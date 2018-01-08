@@ -3,6 +3,7 @@ var router = express.Router();
 
 
 const authRouter = require('../routes/auth.router.js');
+const publicDataServices = require('../routes/publicDataServices.router.js');
 const dataValidator = require('../middleware/dataValidator.js');
 
 
@@ -14,6 +15,7 @@ router.use("/uploads", express.static('uploads'));
 
 router.use(dataValidator);
 router.use('/auth', authRouter);
+router.use('/public', publicDataServices);
 
 
 
