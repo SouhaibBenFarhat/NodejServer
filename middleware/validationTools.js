@@ -7,12 +7,14 @@ module.exports.validateLoginData = (data) => {
 }
 
 module.exports.validateRegisterData = (data) => {
+
     if (data.hasOwnProperty('email') && data.hasOwnProperty('password') && Object.keys(data).length === 2) {
         return true;
     } else {
         return false;
     }
 }
+
 
 
 

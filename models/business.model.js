@@ -31,6 +31,10 @@ const businessSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    active: {
+        type: Boolean,
+        default: false
+    },
     pageEmail: {
         type: String,
         required: true
@@ -99,7 +103,7 @@ const Business = module.exports = mongoose.model('Business', businessSchema);
 
 module.exports.findAllBusiness = () => {
     return new Promise((resolve, reject) => {
-        Business.find({}).then((data) => {
+        Business.find({ visible: true }).then((data) => {
             resolve(data);
         }).catch((err) => {
             reject(err);

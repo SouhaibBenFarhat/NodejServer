@@ -101,6 +101,7 @@ module.exports.checkConfirmation = (token) => {
                     User.findUserByEmail(decoded.email).then((data) => {
                         if (data.confirmed === true) {
                             reject();
+                            console.log('here');
                         } else {
                             resolve();
                         }
@@ -214,6 +215,8 @@ module.exports.login = (email, password) => {
 
         }).catch((err) => {
             reject(err);
+            console.log(err);
+
         })
     });
 
