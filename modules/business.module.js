@@ -19,3 +19,22 @@ module.exports.findAllBusiness = () => {
         })
     })
 }
+
+module.exports.findBusinessByUser = (userId) => {
+    return new Promise((resolve, reject) => {
+        Business.findBusinessByUser(userId).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    });
+}
+module.exports.findBusinessById = (businessId) => {
+    return new Promise((resolve, reject) => {
+        Business.findBusinessById(businessId).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    })
+}

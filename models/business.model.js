@@ -121,5 +121,24 @@ module.exports.addBusiness = (business) => {
     })
 }
 
+module.exports.findBusinessByUser = (userId) => {
+    return new Promise((resolve, reject) => {
+        Business.find({ userId: userId }).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    })
+}
+
+module.exports.findBusinessById = (businessId) => {
+    return new Promise((resolve, reject) => {
+        Business.findById(businessId).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    })
+}
 
 
