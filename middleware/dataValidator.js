@@ -13,7 +13,7 @@ router.post('*/login', (req, res, next) => {
 });
 
 router.post('*/register', (req, res, next) => {
-    if (validationTools.validateLoginData(req.body)) {
+    if (validationTools.validateRegisterData(req.body)) {
         next();
     } else {
         response.badRequest(res, 'Invalid register data');

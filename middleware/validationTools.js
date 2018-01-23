@@ -8,7 +8,7 @@ module.exports.validateLoginData = (data) => {
 
 module.exports.validateRegisterData = (data) => {
 
-    if (data.hasOwnProperty('email') && data.hasOwnProperty('password') && Object.keys(data).length === 2) {
+    if (data.hasOwnProperty('email') && data.hasOwnProperty('password') && data.hasOwnProperty('role') && Object.keys(data).length === 3) {
         return true;
     } else {
         return false;
