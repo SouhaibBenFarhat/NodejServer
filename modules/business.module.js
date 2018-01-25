@@ -38,3 +38,13 @@ module.exports.findBusinessById = (businessId) => {
         })
     })
 }
+
+module.exports.updateBusiness = (business) => {
+    return new Promise((resolve, reject) => {
+        Business.updateBusiness(business).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    })
+}

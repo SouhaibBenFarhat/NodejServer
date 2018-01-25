@@ -141,4 +141,14 @@ module.exports.findBusinessById = (businessId) => {
     })
 }
 
+module.exports.updateBusiness = (business) => {
+    return new Promise((resolve, reject) => {
+        Business.findByIdAndUpdate({ _id: business._id }, business, { new: true }).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    })
+}
+
 

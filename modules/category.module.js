@@ -4,11 +4,19 @@ const Category = require('../models/category.model.js');
 
 module.exports.findCategoryById = (id) => {
     return new Promise((resolve, reject) => {
-        Category.findCategoryById(id).then((data) => {
-            resolve(data);
-        }).catch((err) => {
-            reject(err);
-        })
+        if (Array.isArray(id)) {
+            Category.findByGroupId(id).then((data) => {
+                resolve(data);
+            }).catch((err) => {
+                reject(err);
+            })
+        } else {
+            Category.findCategoryById(id).then((data) => {
+                resolve(data);
+            }).catch((err) => {
+                reject(err);
+            });
+        }
     })
 }
 

@@ -22,6 +22,21 @@ router.get('/', (req, res) => {
     }
 
 });
+router.patch('/group/', (req, res) => {
+
+    if (req.body) {
+        categoryModule.findCategoryById(req.body).then((data) => {
+            response.accepted(res, data);
+        }).catch((err) => {
+            response.badRequest(res, err);
+        })
+    }else{
+        response.badRequest(res, 'invalid request.');
+        
+    }
+
+
+});
 
 
 router.get('/:limit', (req, res) => {
@@ -34,6 +49,7 @@ router.get('/:limit', (req, res) => {
         response.badRequest(res, err)
     });
 });
+
 
 router.post('/', (req, res) => {
     categoryModule.addCategory(req.body).then((data) => {

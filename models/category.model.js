@@ -1,3 +1,4 @@
+
 const mongoose = require('mongoose');
 const productSchema = require('./product.model.js').schema;
 
@@ -27,6 +28,26 @@ module.exports.findCategoryById = (id) => {
             reject(err);
         })
     });
+}
+
+module.exports.findByGroupId = (ids) => {
+    return new Promise((resolve, reject) => {
+        let categories = [];
+        let resultLength = ids.length;
+        ids.forEach(id => {
+            module.exports.findCategoryById(id).then((data) => {
+                if (data) { categories.push(data); }
+                else { resultLength = resultLength - 1; }
+                if (resultLength == categories.length) {
+                    resolve(categories);
+                }
+            }).catch((err) => {
+                reject(err);
+            });
+        });
+    })
+
+
 }
 
 module.exports.findAllCategories = () => {

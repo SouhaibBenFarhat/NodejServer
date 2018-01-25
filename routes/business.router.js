@@ -53,6 +53,22 @@ router.post('/', (req, res) => {
     })
 })
 
+router.put('/', (req, res) => {
+    let business = req.body;
+    if (business == null || business == undefined) {
+        response.badRequest(res, 'invalid request');
+        return;
+    }
+    businessModule.updateBusiness(business).then((data) => {
+        if (data) {
+            response.accepted(res, data);
+            return;
+        }
+        response.badRequest(res, null);
+    }).catch((err) => {
+        response.badRequest(res, err);
+    })
+})
 
 
 
