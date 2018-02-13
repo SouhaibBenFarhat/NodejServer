@@ -38,6 +38,22 @@ router.get('/business-type', (req, res) => {
     })
 
 });
+
+router.get('/business-type/:id', (req, res) => {
+
+    let id = req.params.id;
+    if (id == undefined || id == null) {
+        response.badRequest(res, 'invalid request');
+        return;
+    }
+
+    businessTypeModule.findBusinessTypeById(id).then((data) => {
+        response.accepted(res, data);
+    }).catch((err) => {
+        response.badRequest(res, err);
+    })
+
+});
 router.post('/business-type', (req, res) => {
 
     let businessType = req.body;
